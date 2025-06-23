@@ -33,10 +33,10 @@ def check_range(start: int, end: int) -> list:
 
 def brute_force_password() -> None:
     futures = []
-    cpu_count = multiprocessing.cpu_count() - 1
-    part = 100_000_000 // cpu_count
-    with ProcessPoolExecutor(cpu_count) as executor:
-        for i in range(cpu_count):
+    cpu_count = multiprocessing.cpu_count()
+    part = 100_000_000 // cpu_count - 1
+    with ProcessPoolExecutor(cpu_count - 1) as executor:
+        for i in range(cpu_count - 1):
             futures.append(executor.submit(
                 check_range,
                 start=i * part,
